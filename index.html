@@ -40,7 +40,6 @@
             overflow-x: hidden;
         }
 
-        /* Top Navigation Bar */
         header {
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(16px);
@@ -91,12 +90,6 @@
             color: var(--text-sub);
         }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
         .badge-online {
             display: flex;
             align-items: center;
@@ -117,14 +110,12 @@
             box-shadow: 0 0 8px var(--accent-green);
         }
 
-        /* Main Wrapper */
         .app-container {
             max-width: 1100px;
             margin: 24px auto 0;
             padding: 0 16px;
         }
 
-        /* Top Financial Cards Grid */
         .dash-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -138,7 +129,6 @@
             }
         }
 
-        /* Main Platinum Wallet Card */
         .credit-card-panel {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             border: 1px solid var(--border-color);
@@ -238,7 +228,6 @@
             color: var(--text-main);
         }
 
-        /* Analytics Quick Panel */
         .analytics-panel {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -258,14 +247,12 @@
             align-items: center;
         }
 
-        /* Canvas Chart Container */
         .chart-box {
             position: relative;
             height: 130px;
             width: 100%;
         }
 
-        /* App Navigation Tabs */
         .nav-tabs {
             display: flex;
             gap: 8px;
@@ -299,7 +286,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Tab Contents */
         .tab-content {
             display: none;
         }
@@ -308,7 +294,6 @@
             display: block;
         }
 
-        /* Market Section Styling */
         .filter-bar {
             display: flex;
             gap: 10px;
@@ -423,7 +408,6 @@
             box-shadow: 0 0 12px var(--accent-green-glow);
         }
 
-        /* Form Styling */
         .form-panel {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -462,7 +446,6 @@
             box-shadow: 0 0 10px var(--accent-green-glow);
         }
 
-        /* Table Styling */
         .table-panel {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -501,7 +484,6 @@
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <header>
         <div class="header-inner">
             <div class="brand-box">
@@ -514,7 +496,7 @@
             <div class="header-actions">
                 <div class="badge-online">
                     <div class="dot-ping"></div>
-                    <span>شبکه آنلاین</span>
+                    <span>حافظه محلی فعال (Persistent)</span>
                 </div>
             </div>
         </div>
@@ -522,13 +504,12 @@
 
     <div class="app-container">
 
-        <!-- Financial Dashboard Summary -->
         <div class="dash-grid">
             <div class="credit-card-panel">
                 <div class="card-top-bar">
                     <div>
                         <div class="user-meta-label">شناسه حساب تجاری</div>
-                        <div class="user-name-title">امیرعلی گودرزی (کسب‌وکار معتبر)</div>
+                        <div class="user-name-title">امیرعلی گودرزی</div>
                     </div>
                     <div class="card-serial">MX-9940-2026</div>
                 </div>
@@ -543,36 +524,27 @@
 
                 <div class="card-footer-stats">
                     <div class="stat-item">
-                        <span>اعتبار تخصیص‌یافته</span>
+                        <span>اعتبار اولیه</span>
                         <span>5,000 MX</span>
                     </div>
                     <div class="stat-item">
-                        <span>تراکنش‌های موفق</span>
-                        <span>۱۸ معامله</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>رتبه اعتبار شبکه</span>
+                        <span>رتبه اعتبار</span>
                         <span style="color: var(--accent-green);">A+ عالی</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Chart Analytics -->
             <div class="analytics-panel">
                 <div class="analytics-title">
                     <span>روند گردش اعتبار</span>
-                    <span style="font-size: 0.75rem; color: var(--accent-green);">+۱۲.۵٪ این ماه</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-green);">پایدار</span>
                 </div>
                 <div class="chart-box">
                     <canvas id="miniChart"></canvas>
                 </div>
-                <div style="font-size: 0.75rem; color: var(--text-dark); text-align: center; margin-top: 8px;">
-                    نمودار تعاملی جریان ورودی و خروجی پایاپای
-                </div>
             </div>
         </div>
 
-        <!-- Section Navigation Tabs -->
         <div class="nav-tabs">
             <button class="tab-btn active" onclick="switchTab('marketTab', this)">بازارچه فعال اصناف</button>
             <button class="tab-btn" onclick="switchTab('createTab', this)">+ ثبت سفارش پایاپای جدید</button>
@@ -589,42 +561,7 @@
             </div>
 
             <div class="market-grid" id="marketItemsGrid">
-                <!-- Pre-populated Live Items -->
-                <div class="market-card" data-category="کالا و قطعات">
-                    <div>
-                        <div class="card-badge">کالا و قطعات</div>
-                        <div class="card-title">۵۰ کیلو گردوی اعلا نهاوند</div>
-                        <div class="card-desc">محصول درجه یک تازه، آماده تحویل حضوری یا ارسال سریع.</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">۱8۰ MX</div>
-                        <button class="btn-action" onclick="buyItem('۵۰ کیلو گردو', 180)">درخواست تبادل</button>
-                    </div>
-                </div>
-
-                <div class="market-card" data-category="فنی و خدمات">
-                    <div>
-                        <div class="card-badge">خدمات و تعمیرات</div>
-                        <div class="card-title">سرویس کامل و آوارگیری موتور</div>
-                        <div class="card-desc">تعویض روغن، تنظیم کاربراتور/انژکتور و آوارگیری کامل.</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">۳۵۰ MX</div>
-                        <button class="btn-action" onclick="buyItem('سرویس کامل موتور', 350)">درخواست تبادل</button>
-                    </div>
-                </div>
-
-                <div class="market-card" data-category="کالا و قطعات">
-                    <div>
-                        <div class="card-badge">کالا و قطعات</div>
-                        <div class="card-title">کلاه کاسکت فک‌دار استاندار</div>
-                        <div class="card-desc">کاملاً نو، ضد ضربه، دارای طلق دودی ضد خش.</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">۲۲۰ MX</div>
-                        <button class="btn-action" onclick="buyItem('کلاه کاسکت', 220)">درخواست تبادل</button>
-                    </div>
-                </div>
+                <!-- Items injected dynamically via JS storage -->
             </div>
         </div>
 
@@ -680,20 +617,7 @@
                         </tr>
                     </thead>
                     <tbody id="transactionRows">
-                        <tr>
-                            <td class="type-plus">واریز اعتباری</td>
-                            <td>شارژ اولیه حساب پایاپای اصناف</td>
-                            <td class="type-plus">+2,500 MX</td>
-                            <td>۱۴۰۵/۰۸/۱۰</td>
-                            <td><span style="color: var(--accent-green);">تایید شده</span></td>
-                        </tr>
-                        <tr>
-                            <td class="type-minus">خرید خدمت</td>
-                            <td>تعویض روغن و سرویس دوره‌ای</td>
-                            <td class="type-minus">-50 MX</td>
-                            <td>۱۴۰۵/۰۸/۱۱</td>
-                            <td><span style="color: var(--accent-green);">تکمیل شده</span></td>
-                        </tr>
+                        <!-- Transactions injected via JS storage -->
                     </tbody>
                 </table>
             </div>
@@ -701,131 +625,34 @@
 
     </div>
 
-    <!-- Canvas Chart Library Injection -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        // State Management
-        let currentBalance = 2450;
+        // Default LocalStorage Initialization
+        let balance = localStorage.getItem('modex_balance') ? parseInt(localStorage.getItem('modex_balance')) : 2450;
+        
+        let items = localStorage.getItem('modex_items') ? JSON.parse(localStorage.getItem('modex_items')) : [
+            { id: 1, title: '۵۰ کیلو گردوی اعلا نهاوند', category: 'کالا و قطعات', desc: 'محصول درجه یک تازه، آماده تحویل حضوری.', price: 180 },
+            { id: 2, title: 'سرویس کامل و آوارگیری موتور', category: 'فنی و خدمات', desc: 'تعویض روغن، تنظیم انژکتور و امداد سیار.', price: 350 },
+            { id: 3, title: 'کلاه کاسکت فک‌دار استاندار', category: 'کالا و قطعات', desc: 'کاملاً نو، ضد ضربه، دارای طلق ضد خش.', price: 220 }
+        ];
 
-        // Tab Switching Logic
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
+        let transactions = localStorage.getItem('modex_tx') ? JSON.parse(localStorage.getItem('modex_tx')) : [
+            { type: 'واریز اعتباری', title: 'شارژ اولیه حساب پایاپای اصناف', amount: '+2,500 MX', date: '۱۴۰۵/۰۸/۱۰', style: 'type-plus' },
+            { type: 'خرید خدمت', title: 'سرویس دوره‌ای موتور', amount: '-50 MX', date: '۱۴۰۵/۰۸/۱۱', style: 'type-minus' }
+        ];
+
+        function updateUI() {
+            document.getElementById('currentBalance').innerText = balance.toLocaleString();
+            localStorage.setItem('modex_balance', balance);
+            localStorage.setItem('modex_items', JSON.stringify(items));
+            localStorage.setItem('modex_tx', JSON.stringify(transactions));
+
+            renderMarket();
+            renderTransactions();
         }
 
-        // Category Filter Logic
-        function filterCategory(cat, chip) {
-            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-
-            const cards = document.querySelectorAll('.market-card');
-            cards.forEach(card => {
-                if (cat === 'all' || card.dataset.category === cat) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Form Handler
-        document.getElementById('newTradeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('tradeTitle').value;
-            const value = parseInt(document.getElementById('tradeValue').value);
-            const category = document.getElementById('tradeCategory').value;
-            const desc = document.getElementById('tradeDesc').value || 'بدون توضیحات تکمیلی.';
-
-            // Create Market Card
+        function renderMarket() {
             const grid = document.getElementById('marketItemsGrid');
-            const newCard = document.createElement('div');
-            newCard.className = 'market-card';
-            newCard.dataset.category = category;
-            newCard.innerHTML = `
-                <div>
-                    <div class="card-badge">${category}</div>
-                    <div class="card-title">${title}</div>
-                    <div class="card-desc">${desc}</div>
-                </div>
-                <div class="card-footer">
-                    <div class="card-price">${value} MX</div>
-                    <button class="btn-action" onclick="buyItem('${title}', ${value})">درخواست تبادل</button>
-                </div>
-            `;
-            grid.prepend(newCard);
-
-            // Add to Transaction Table
-            addTransactionRow('ثبت فروش', title, `+${value} MX`, 'type-plus');
-
-            // Reset & Switch Tab
-            this.reset();
-            alert('سفارش شما با موفقیت در سیستم متمرکز اصناف ثبت شد.');
-            switchTab('marketTab', document.querySelectorAll('.tab-btn')[0]);
-        });
-
-        // Instant Purchase Simulation
-        function buyItem(title, cost) {
-            if (currentBalance < cost) {
-                alert('موجودی اعتبار شما برای انجام این تبادل کافی نیست!');
-                return;
-            }
-
-            if (confirm(`آیا از دریافت "${title}" به ارزش ${cost} امتیاز اطمینان دارید؟`)) {
-                currentBalance -= cost;
-                document.getElementById('currentBalance').innerText = currentBalance.toLocaleString();
-                
-                addTransactionRow('خرید پایاپای', title, `-${cost} MX`, 'type-minus');
-                alert('درخواست تبادل ارسال شد و مبلغ از موجودی شما کسر گردید.');
-            }
-        }
-
-        function addTransactionRow(type, title, amount, styleClass) {
-            const tbody = document.getElementById('transactionRows');
-            const row = document.createElement('tr');
-            const today = new Date().toLocaleDateString('fa-IR');
-            row.innerHTML = `
-                <td class="${styleClass}">${type}</td>
-                <td>${title}</td>
-                <td class="${styleClass}">${amount}</td>
-                <td>${today}</td>
-                <td><span style="color: var(--accent-green);">تکمیل شده</span></td>
-            `;
-            tbody.prepend(row);
-        }
-
-        // Initialize Canvas Chart
-        window.onload = function() {
-            const ctx = document.getElementById('miniChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['۱', '۵', '۱۰', '۱۵', '۲۰', '۲۵', '۳۰'],
-                    datasets: [{
-                        data: [1200, 1900, 1600, 2100, 1800, 2400, 2450],
-                        borderColor: '#10b981',
-                        borderWidth: 2,
-                        fill: true,
-                        backgroundColor: 'rgba(16, 185, 129, 0.08)',
-                        tension: 0.4,
-                        pointRadius: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { display: false },
-                        y: { display: false }
-                    }
-                }
-            });
-        };
-    </script>
-</body>
-</html>
+            grid.innerHTML = '';
+            items.forEach((item, index) => {
