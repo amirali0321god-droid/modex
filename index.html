@@ -3,656 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modex Enterprise | پلتفرم هوشمند پایاپای و اعتبار اصناف</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <title>Modex - پلتفرم جامع اعتباری و تهاتر اصناف</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --bg-base: #06090e;
-            --bg-surface: #0f172a;
-            --bg-card: #1e293b;
-            --bg-card-hover: #334155;
-            --accent-green: #10b981;
-            --accent-green-glow: rgba(16, 185, 129, 0.25);
-            --accent-blue: #3b82f6;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --text-dark: #64748b;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(16, 185, 129, 0.4);
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
+            --primary-color: #0d6efd;
+            --dark-navy: #0f172a;
+            --card-bg: #1e293b;
+            --accent-gold: #f59e0b;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Vazirmatn', -apple-system, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            line-height: 1.6;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, sans-serif;
             padding-bottom: 80px;
-            overflow-x: hidden;
         }
-
-        header {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 14px 24px;
+        .navbar-custom {
+            background-color: #1e293b;
+            border-bottom: 1px solid #334155;
         }
-
-        .header-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-logo {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #10b981, #0284c7);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.1rem;
-            color: #fff;
-            box-shadow: 0 0 15px var(--accent-green-glow);
-        }
-
-        .brand-info h1 {
-            font-size: 1.15rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-info p {
-            font-size: 0.72rem;
-            color: var(--text-sub);
-        }
-
-        .badge-online {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            color: var(--accent-green);
-        }
-
-        .dot-ping {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-green);
-        }
-
-        .app-container {
-            max-width: 1100px;
-            margin: 24px auto 0;
-            padding: 0 16px;
-        }
-
-        .dash-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        @media (min-width: 768px) {
-            .dash-grid {
-                grid-template-columns: 2fr 1fr;
-            }
-        }
-
-        .credit-card-panel {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .credit-card-panel::after {
-            content: '';
-            position: absolute;
-            top: -60%;
-            left: -60%;
-            width: 220%;
-            height: 220%;
-            background: radial-gradient(circle, var(--accent-green-glow) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .card-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 28px;
-        }
-
-        .user-meta-label {
-            font-size: 0.78rem;
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .user-name-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .card-serial {
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            background: rgba(255, 255, 255, 0.04);
-            padding: 4px 10px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-        }
-
-        .balance-section {
-            margin-bottom: 24px;
-        }
-
-        .balance-label {
-            font-size: 0.82rem;
-            color: var(--text-sub);
-        }
-
-        .balance-number {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: #fff;
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            letter-spacing: -1px;
-        }
-
-        .balance-currency {
-            font-size: 1.1rem;
-            color: var(--accent-green);
-            font-weight: 600;
-        }
-
-        .card-footer-stats {
-            display: flex;
-            gap: 24px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-item span:first-child {
-            font-size: 0.75rem;
-            color: var(--text-dark);
-        }
-
-        .stat-item span:last-child {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .analytics-panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .analytics-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chart-box {
-            position: relative;
-            height: 130px;
-            width: 100%;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 8px;
-            background: var(--bg-surface);
-            padding: 6px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            margin-bottom: 24px;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 10px 16px;
+        .nav-tab-btn {
             background: transparent;
             border: none;
-            color: var(--text-sub);
+            color: #94a3b8;
+            padding: 10px 18px;
             font-weight: 600;
-            font-size: 0.9rem;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            text-align: center;
+            border-radius: 8px;
         }
-
-        .tab-btn.active {
-            background: var(--bg-card);
-            color: var(--text-main);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-color);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        .filter-chip {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            color: var(--text-sub);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .filter-chip.active, .filter-chip:hover {
-            border-color: var(--accent-green);
-            color: var(--text-main);
-            background: rgba(16, 185, 129, 0.08);
-        }
-
-        .market-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media (min-width: 640px) {
-            .market-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .market-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .market-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .market-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--border-highlight);
-        }
-
-        .card-badge {
-            font-size: 0.7rem;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-blue);
-            padding: 3px 8px;
-            border-radius: 4px;
-            align-self: flex-start;
-            margin-bottom: 12px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .card-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .card-desc {
-            font-size: 0.82rem;
-            color: var(--text-sub);
-            margin-bottom: 16px;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .card-price {
-            font-weight: 800;
-            color: var(--accent-green);
-            font-size: 1.1rem;
-        }
-
-        .btn-action {
-            background: var(--accent-green);
+        .nav-tab-btn.active {
+            background-color: #0d6efd;
             color: #fff;
-            border: none;
-            padding: 8px 14px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 0.82rem;
-            cursor: pointer;
-            transition: 0.2s ease;
         }
-
-        .btn-action:hover {
-            background: #059669;
-            box-shadow: 0 0 12px var(--accent-green-glow);
+        .credit-card-widget {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-
-        .form-panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            max-width: 700px;
-            margin: 0 auto;
+        .modex-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
         }
-
-        .form-group {
-            margin-bottom: 18px;
+        .badge-trade {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 6px;
         }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            margin-bottom: 6px;
-            font-weight: 600;
+        .escrow-alert {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid #f59e0b;
+            color: #fcd34d;
         }
-
-        .form-control {
-            width: 100%;
-            background: var(--bg-base);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px 16px;
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            outline: none;
-            transition: 0.2s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green-glow);
-        }
-
-        .table-panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: right;
-            font-size: 0.88rem;
-        }
-
-        th {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 14px 18px;
-            color: var(--text-sub);
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        td {
-            padding: 14px 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--text-main);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .type-plus { color: var(--accent-green); font-weight: 700; }
-        .type-minus { color: #ef4444; font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-inner">
-            <div class="brand-box">
-                <div class="brand-logo">MX</div>
-                <div class="brand-info">
-                    <h1>Modex Enterprise</h1>
-                    <p>شبکه متمرکز پایاپای اعتباری اصناف</p>
-                </div>
+    <!-- نوار بالای سایت -->
+    <nav class="navbar navbar-custom sticky-top mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="navbar-brand text-white fw-bold fs-4">MODEX <span class="badge bg-warning text-dark fs-6">اصناف</span></span>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-secondary p-2"><i class="bi bi-shield-check text-success me-1"></i> هویت تایید شده</span>
             </div>
-            <div class="header-actions">
-                <div class="badge-online">
-                    <div class="dot-ping"></div>
-                    <span>حافظه محلی فعال (Persistent)</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- منوی سوییچ بین قالب‌ها -->
+        <div class="d-flex justify-content-center gap-2 mb-4 bg-dark p-2 rounded-3 border border-secondary">
+            <button class="nav-tab-btn active" onclick="switchTab('dashboard')"><i class="bi bi-speedometer2 me-1"></i> داشبورد اعتباری</button>
+            <button class="nav-tab-btn" onclick="switchTab('marketplace')"><i class="bi bi-shop me-1"></i> بازارگاه اصناف</button>
+            <button class="nav-tab-btn" onclick="switchTab('trade')"><i class="bi bi-arrow-left-right me-1"></i> پنل معامله و امن</button>
+        </div>
+
+        <!-- قالب ۱: داشبورد اصلی -->
+        <div id="tab-dashboard" class="tab-content">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="credit-card-widget">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div>
+                                <small class="text-light opacity-75">کارت اعتباری کسب‌وکار</small>
+                                <h5 class="mb-0 text-white">امیرعلی گودرزی (تولیدی و خدمات)</h5>
+                            </div>
+                            <span class="fs-4 fw-bold text-warning">MX</span>
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-light opacity-75">موجودی اعتبار فعال</small>
+                            <h2 class="fw-bold text-white mb-0">۱۲,۵۰۰ <span class="fs-6">MX</span></h2>
+                        </div>
+                        <div class="d-flex justify-content-between pt-3 border-top border-white border-opacity-10">
+                            <small class="text-light opacity-75">اعتبار معلق (در انتظار تایید معامله):</small>
+                            <small class="fw-bold text-info">۲,۰۰۰ MX</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="modex-card p-4 h-100">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-shield-lock text-warning me-2"></i> وضعیت امنیت و اعتبار سنجی</h5>
+                        <ul class="list-group list-group-flush bg-transparent">
+                            <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center">
+                                سقف معامله مجاز روزانه:
+                                <span class="fw-bold text-success">۵۰,۰۰۰ MX</span>
+                            </li>
+                            <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center">
+                                امتیاز اعتماد اصناف:
+                                <span class="badge bg-primary fs-6">4.9 / 5</span>
+                            </li>
+                            <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center">
+                                سیستم امانتداری فعال (Escrow):
+                                <span class="text-warning">فعال و ضامن کالا/خدمت</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
 
-    <div class="app-container">
-
-        <div class="dash-grid">
-            <div class="credit-card-panel">
-                <div class="card-top-bar">
-                    <div>
-                        <div class="user-meta-label">شناسه حساب تجاری</div>
-                        <div class="user-name-title">امیرعلی گودرزی</div>
+        <!-- قالب ۲: بازارگاه جامع با فیلترهای کامل -->
+        <div id="tab-marketplace" class="tab-content d-none">
+            <div class="modex-card p-3 mb-4">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="جستجوی کالا، خدمت یا صنف...">
                     </div>
-                    <div class="card-serial">MX-9940-2026</div>
-                </div>
-
-                <div class="balance-section">
-                    <div class="balance-label">موجودی اعتبار پایاپای فعال</div>
-                    <div class="balance-number">
-                        <span id="currentBalance">2,450</span>
-                        <span class="balance-currency">MX-Points</span>
-                    </div>
-                </div>
-
-                <div class="card-footer-stats">
-                    <div class="stat-item">
-                        <span>اعتبار اولیه</span>
-                        <span>5,000 MX</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>رتبه اعتبار</span>
-                        <span style="color: var(--accent-green);">A+ عالی</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="analytics-panel">
-                <div class="analytics-title">
-                    <span>روند گردش اعتبار</span>
-                    <span style="font-size: 0.75rem; color: var(--accent-green);">پایدار</span>
-                </div>
-                <div class="chart-box">
-                    <canvas id="miniChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('marketTab', this)">بازارچه فعال اصناف</button>
-            <button class="tab-btn" onclick="switchTab('createTab', this)">+ ثبت سفارش پایاپای جدید</button>
-            <button class="tab-btn" onclick="switchTab('historyTab', this)">دفتر گردش حساب و تراکنش‌ها</button>
-        </div>
-
-        <!-- TAB 1: Market Grid -->
-        <div id="marketTab" class="tab-content active">
-            <div class="filter-bar">
-                <div class="filter-chip active" onclick="filterCategory('all', this)">همه اصناف</div>
-                <div class="filter-chip" onclick="filterCategory('فنی و خدمات', this)">خدمات و تعمیرات</div>
-                <div class="filter-chip" onclick="filterCategory('کالا و قطعات', this)">کالا و قطعات</div>
-                <div class="filter-chip" onclick="filterCategory('پذیرایی و مواد غذایی', this)">مواد غذایی</div>
-            </div>
-
-            <div class="market-grid" id="marketItemsGrid">
-                <!-- Items injected dynamically via JS storage -->
-            </div>
-        </div>
-
-        <!-- TAB 2: Create Order Form -->
-        <div id="createTab" class="tab-content">
-            <div class="form-panel">
-                <h2 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                    انتشار رسمی سفارش در شبکه Modex
-                </h2>
-                <form id="newTradeForm">
-                    <div class="form-group">
-                        <label>عنوان کالا یا خدمت پیشنهادی</label>
-                        <input type="text" id="tradeTitle" class="form-control" placeholder="مثلاً: تعویض لنت و سرویس ترمز" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>ارزش پیشنهادی بر حسب امتیاز (MX-Points)</label>
-                        <input type="number" id="tradeValue" class="form-control" placeholder="مثلاً: 150" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>صنف و دسته‌بندی</label>
-                        <select id="tradeCategory" class="form-control">
-                            <option value="فنی و خدمات">خدمات و تعمیرات</option>
-                            <option value="کالا و قطعات">کالا و قطعات</option>
-                            <option value="پذیرایی و مواد غذایی">مواد غذایی و پذیرایی</option>
+                    <div class="col-md-4">
+                        <select class="form-select bg-dark text-white border-secondary">
+                            <option value="">همه حالت‌های تبادل</option>
+                            <option value="1">📦 کالا به کالا</option>
+                            <option value="2">🛠️ مهارت به مهارت</option>
+                            <option value="3">🔄 مهارت در برابر کالا</option>
+                            <option value="4">💳 تسویه با اعتبار MX</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
-                        <label>توضیحات تکمیلی و شرایط تبادل</label>
-                        <textarea id="tradeDesc" class="form-control" rows="3" placeholder="جزئیات خدمت یا کیفیت کالا را وارد کنید..."></textarea>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i> اعمال فیلتر</button>
                     </div>
+                </div>
+            </div>
 
-                    <button type="submit" class="btn-action" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 10px;">
-                        ثبت و انتشار هوشمند در شبکه
-                    </button>
-                </form>
+            <!-- آگهی نمونه -->
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <div class="modex-card p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-info text-dark badge-trade">🔄 مهارت در برابر کالا</span>
+                            <small class="text-muted">تهران - بازار</small>
+                        </div>
+                        <h6 class="fw-bold">خدمات برق‌کاری و سیم‌کشی کارگاه</h6>
+                        <p class="text-secondary small">۵ ساعت خدمات سیم‌کشی صنعتی ارائه می‌دهم. در ازای آن ۱۰ لیتر روغن موتور یا قطعات نیازمندم.</p>
+                        <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                            <span class="small text-warning"><i class="bi bi-star-fill"></i> ۴.۸ (تعمیرات)</span>
+                            <button class="btn btn-sm btn-outline-primary" onclick="switchTab('trade')">ثبت پیشنهاد معامله</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- TAB 3: History & Transactions -->
-        <div id="historyTab" class="tab-content">
-            <div class="table-panel">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>نوع تراکنش</th>
-                            <th>عنوان معامله</th>
-                            <th>مبلغ (MX)</th>
-                            <th>تاریخ ثبت</th>
-                            <th>وضعیت</th>
-                        </tr>
-                    </thead>
-                    <tbody id="transactionRows">
-                        <!-- Transactions injected via JS storage -->
-                    </tbody>
-                </table>
+        <!-- قالب ۳: پنل معامله و تسویه امن -->
+        <div id="tab-trade" class="tab-content d-none">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="modex-card p-4">
+                        <h5 class="fw-bold mb-3 text-center"><i class="bi bi-file-earmark-check text-primary me-2"></i> ثبت قرارداد و تسویه امن Modex</h5>
+                        
+                        <div class="alert escrow-alert d-flex align-items-center mb-4" role="alert">
+                            <i class="bi bi-shield-exclamation fs-3 me-3"></i>
+                            <div>
+                                <strong>تضمین امنیت معامله:</strong> سرمایه یا اعتبار تا زمان تایید نهایی کیفیت کالا/خدمات توسط طرفین، نزد سیستم امانت می‌ماند.
+                            </div>
+                        </div>
+
+                        <form id="tradeForm" onsubmit="event.preventDefault(); processTrade();">
+                            <div class="mb-3">
+                                <label class="form-label">نوع معامله:</label>
+                                <select class="form-select bg-dark text-white border-secondary" id="tradeType" onchange="calculateFee()">
+                                    <option value="skill_goods">مهارت در برابر کالا</option>
+                                    <option value="goods_goods">کالا در برابر کالا</option>
+                                    <option value="skill_skill">مهارت در برابر مهارت</option>
+                                    <option value="mx_credit">تسویه با اعتبار MX</option>
+                                </select>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">ارزش تخمینی معامله (تومان / MX):</label>
+                                    <input type="number" class="form-control bg-dark text-white border-secondary" id="tradeValue" placeholder="مثلاً ۵,۰۰۰,۰۰۰" oninput="calculateFee()">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">کارمزد پلتفرم (۱.۵٪):</label>
+                                    <input type="text" class="form-control bg-dark text-warning border-secondary" id="platformFee" readonly placeholder="محاسبه اتوماتیک...">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">کد/شناسه طرف مقابل معامله:</label>
+                                <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="شناسه کاربر یا شماره همراه...">
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100 py-2 fw-bold"><i class="bi bi-lock-fill me-1"></i> قفل اعتبار و ثبت نهایی معامله امن</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
-        // Default LocalStorage Initialization
-        let balance = localStorage.getItem('modex_balance') ? parseInt(localStorage.getItem('modex_balance')) : 2450;
-        
-        let items = localStorage.getItem('modex_items') ? JSON.parse(localStorage.getItem('modex_items')) : [
-            { id: 1, title: '۵۰ کیلو گردوی اعلا نهاوند', category: 'کالا و قطعات', desc: 'محصول درجه یک تازه، آماده تحویل حضوری.', price: 180 },
-            { id: 2, title: 'سرویس کامل و آوارگیری موتور', category: 'فنی و خدمات', desc: 'تعویض روغن، تنظیم انژکتور و امداد سیار.', price: 350 },
-            { id: 3, title: 'کلاه کاسکت فک‌دار استاندار', category: 'کالا و قطعات', desc: 'کاملاً نو، ضد ضربه، دارای طلق ضد خش.', price: 220 }
-        ];
-
-        let transactions = localStorage.getItem('modex_tx') ? JSON.parse(localStorage.getItem('modex_tx')) : [
-            { type: 'واریز اعتباری', title: 'شارژ اولیه حساب پایاپای اصناف', amount: '+2,500 MX', date: '۱۴۰۵/۰۸/۱۰', style: 'type-plus' },
-            { type: 'خرید خدمت', title: 'سرویس دوره‌ای موتور', amount: '-50 MX', date: '۱۴۰۵/۰۸/۱۱', style: 'type-minus' }
-        ];
-
-        function updateUI() {
-            document.getElementById('currentBalance').innerText = balance.toLocaleString();
-            localStorage.setItem('modex_balance', balance);
-            localStorage.setItem('modex_items', JSON.stringify(items));
-            localStorage.setItem('modex_tx', JSON.stringify(transactions));
-
-            renderMarket();
-            renderTransactions();
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
+            document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.remove('d-none');
+            event.currentTarget.classList.add('active');
         }
 
-        function renderMarket() {
-            const grid = document.getElementById('marketItemsGrid');
-            grid.innerHTML = '';
-            items.forEach((item, index) => {
+        function calculateFee() {
+            const val = document.getElementById('tradeValue').value;
+            if(val > 0) {
+                const fee = val * 0.015; // ۱.۵ درصد کارمزد پلتفرم
+                document.getElementById('platformFee').value = fee.toLocaleString() + " تومان / MX";
+            } else {
+                document.getElementById('platformFee').value = "";
+            }
+        }
+
+        function processTrade() {
+            alert('معامله با موفقیت ثبت شد و اعتبار در حالت امانتداری (Escrow) قرار گرفت.');
+        }
+    </script>
+</body>
+</html>
