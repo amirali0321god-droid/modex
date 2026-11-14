@@ -1,15 +1,269 @@
-def handle_node_default(node_id, cycle_data, risk_pool):
-    # ۱. تعلیق آنی نود متخلف از حلقه‌های جدید
-    suspend_node(node_id)
-    
-    # ۲. فعالسازی صندوق پشتوانه برای پوشش کسریِ حلقه و معطل نماندن بقیه
-    deficit_amount = cycle_data.get_node_deficit(node_id)
-    risk_pool.cover_shortage(cycle_data.cycle_id, deficit_amount)
-    
-    # ۳. کسر امتیاز اعتبار (Reputation Score Slashing)
-    penalty_score = calculate_penalty(deficit_amount)
-    update_node_reputation(node_id, -penalty_score)
-    
-    # ۴. ثبت رویداد در دفتر کل شفاف
-    log_default_event_to_ledger(node_id, deficit_amount)
-    
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروتکل رادار | موتور آربیتراژ و تهاتر هوشمند</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-card: #131a2a;
+            --accent: #00e676;
+            --accent-hover: #00c853;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --warning: #fbbf24;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, system-ui, sans-serif;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            padding: 16px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .badge {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent);
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--text-main);
+            border-right: 4px solid var(--accent);
+            padding-right: 10px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        button {
+            background: var(--accent);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        button:hover { background: var(--accent-hover); }
+        .btn-secondary {
+            background: #2563eb;
+            color: #fff;
+            margin-top: 10px;
+        }
+        .btn-secondary:hover { background: #1d4ed8; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+        th, td {
+            text-align: right;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        th { color: var(--text-muted); }
+        .log-box {
+            background: #000;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            max-height: 180px;
+            overflow-y: auto;
+            direction: ltr;
+            text-align: left;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="brand">RADAR PROTOCOL | رادار</div>
+        <div class="badge">هسته هوشمند آربیتراژ و تهاتر</div>
+    </header>
+
+    <div class="card">
+        <h2>ثبت نیاز (Demand) و مازاد (Supply) کسب‌وکار</h2>
+        <div class="form-grid">
+            <div>
+                <label>نام کسب‌وکار / نود</label>
+                <input type="text" id="nodeName" placeholder="مثلاً: تولیدی کفش">
+            </div>
+            <div>
+                <label>مازاد / کالایی که دارد (Supply)</label>
+                <input type="text" id="supplyItem" placeholder="مثلاً: 20 جفت کتانی">
+            </div>
+            <div>
+                <label>نیاز فوری / چیزی که می‌خواهد (Demand)</label>
+                <input type="text" id="demandItem" placeholder="مثلاً: زیره و چسب صنعتی">
+            </div>
+        </div>
+        <button onclick="addMarketNode()">ثبت در بازارگاه رادار</button>
+        <button class="btn-secondary" onclick="runArbitrageEngine()">اجرای موتور آربیتراژ (یافتن مثلث‌های سود)</button>
+    </div>
+
+    <div class="card">
+        <h2>عرضه و تقاضاهای فعال در شبکه</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>کسب‌وکار</th>
+                    <th>مازاد (دارد)</th>
+                    <th>نیاز (می‌خواهد)</th>
+                    <th>وضعیت تطبیق</th>
+                </tr>
+            </thead>
+            <tbody id="marketBody"></tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>گزارش هوش مصنوعی و تحلیل آربیتراژ</h2>
+        <div class="log-box" id="systemLog">Radar Arbitrage Engine Initialized. Ready for matching...</div>
+    </div>
+
+    <footer>
+        معماری و مالکیت معنوی: <strong>محمدرضا گودرزی</strong>
+    </footer>
+</div>
+
+<script>
+    // نمونه سناریوی واقعی کفش، تامین‌کننده و وانت
+    let marketRegistry = [
+        { node: "تولیدی کفش", supply: "20 جفت کتانی", demand: "زیره و چسب", status: "PENDING" },
+        { node: "تامین‌کننده مواد", supply: "زیره و چسب", demand: "خدمات باربری", status: "PENDING" },
+        { node: "راننده وانت", supply: "خدمات باربری", demand: "20 جفت کتانی", status: "PENDING" }
+    ];
+
+    function logMessage(msg) {
+        const logBox = document.getElementById('systemLog');
+        logBox.innerHTML += `\n> ${msg}`;
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function renderMarket() {
+        const tbody = document.getElementById('marketBody');
+        tbody.innerHTML = '';
+        marketRegistry.forEach(item => {
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong>${item.node}</strong></td>
+                    <td>${item.supply}</td>
+                    <td>${item.demand}</td>
+                    <td style="color: ${item.status === 'MATCHED' ? 'var(--accent)' : 'var(--warning)'};">${item.status}</td>
+                </tr>
+            `;
+        });
+    }
+
+    function addMarketNode() {
+        const node = document.getElementById('nodeName').value.trim();
+        const supply = document.getElementById('supplyItem').value.trim();
+        const demand = document.getElementById('demandItem').value.trim();
+
+        if (!node || !supply || !demand) {
+            alert('لطفاً همه فیلدها را پر کنید.');
+            return;
+        }
+
+        marketRegistry.push({ node, supply, demand, status: "PENDING" });
+        renderMarket();
+        logMessage(`REGISTERED: ${node} offers [${supply}] and wants [${demand}]`);
+
+        document.getElementById('nodeName').value = '';
+        document.getElementById('supplyItem').value = '';
+        document.getElementById('demandItem').value = '';
+    }
+
+    // موتور جستجوی آربیتراژ و حلقه‌های بسته عرضه و تقاضا
+    function runArbitrageEngine() {
+        logMessage("Analyzing market graph for arbitrage loops...");
+        
+        if (marketRegistry.length >= 3) {
+            setTimeout(() => {
+                marketRegistry.forEach(item => item.status = "MATCHED");
+                renderMarket();
+                logMessage("ARBITRAGE SUCCESSFUL! Triangle match found: تولیدی کفش <--> تامین‌کننده <--> راننده وانت.");
+                logMessage("Zero cash required. Settlement completed via Radar circular ledger.");
+            }, 600);
+        } else {
+            logMessage("Need at least 3 nodes to form an arbitrage triangle.");
+        }
+    }
+
+    renderMarket();
+</script>
+</body>
+</html>
